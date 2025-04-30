@@ -2,7 +2,7 @@ import axios from 'axios'
 // import { useToast } from 'vue-toastification';
 
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_BACKEND_API_URL + '/api',
   withCredentials: true,
   // headers: { 'Content-Type': 'application/json' },
 })
