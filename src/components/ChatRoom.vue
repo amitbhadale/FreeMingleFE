@@ -62,8 +62,9 @@ export default {
   },
   async created() {
     this.commonStore = useCommonStore()
-    // Setup socket
-    this.socket = io('http://localhost:5000') // adjust to your backend URL
+    // Setup socketgit
+    // this.socket = io('http://localhost:5000') // adjust to your backend URL
+    this.socket = io(import.meta.env.VITE_BACKEND_API_URL)
     this.socket.emit('joinRoom', this.chatId)
 
     // Listen for incoming messages
