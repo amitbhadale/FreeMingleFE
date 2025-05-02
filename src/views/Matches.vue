@@ -58,7 +58,6 @@ export default {
     async fetchMatches() {
       try {
         const res = await get('matches')
-        console.log('Fetched matched users:', res)
 
         if (res) {
           this.matchedUsers = res
@@ -73,8 +72,6 @@ export default {
       }
     },
     goToProfile(userId) {
-      console.log('Navigating to user profile with ID:', userId)
-
       this.$router.push({ name: 'UserProfile', params: { id: userId, page: 'match' } })
     },
     updatedImages(userArr) {

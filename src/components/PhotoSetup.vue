@@ -148,8 +148,6 @@ export default {
       if (this.imageToDeleteIndex !== null) {
         try {
           const imageUrl = this.uploadedImages[this.imageToDeleteIndex]
-          console.log('imageUrl:', imageUrl)
-
           // Call your API to delete the image from the backend
           const res = await del('users/delete-photos', {
             data: { imageUrl },
@@ -180,10 +178,8 @@ export default {
 
     async validateAndUpload() {
       const isValid = await this.$refs.fileInput.validate()
-      console.log('Validation result:', isValid)
       if (isValid.length) {
         for (const err of isValid) {
-          console.log('Validation error:', err)
           this.toast.error(err)
         }
         return

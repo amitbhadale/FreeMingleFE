@@ -21,7 +21,15 @@
     </v-toolbar>
 
     <router-view />
+    <v-footer>
+      <v-row class="d-flex justify-center align-center" no-gutters>
+        <v-col cols="12" class="text-center">
+          <span>&copy; {{ new Date().getFullYear() }} FreeMingle</span>
+        </v-col>
+      </v-row>
+    </v-footer>
   </v-card>
+
   <!-- </v-container> -->
 </template>
 

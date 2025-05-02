@@ -76,7 +76,6 @@ export default {
     async fetchLikedUsers() {
       try {
         const res = await get('users/likes/received')
-        console.log('Fetched liked users:', res)
 
         if (res) {
           this.likedUsers = res
@@ -91,8 +90,6 @@ export default {
       }
     },
     goToProfile(userId) {
-      console.log('Navigating to user profile with ID:', userId)
-
       this.$router.push({ name: 'UserProfile', params: { id: userId, page: 'like' } })
     },
     updatedImages(userArr) {

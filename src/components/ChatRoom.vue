@@ -69,7 +69,6 @@ export default {
 
     // Listen for incoming messages
     this.socket.on('receiveMessage', (msg) => {
-      console.log('Received message:', msg)
       this.messages.push(msg)
     })
 
@@ -77,7 +76,6 @@ export default {
     try {
       const res = await get(`/messages/${this.chatId}`)
       this.messages = res
-      console.log('messages', this.messages)
     } catch (err) {
       console.error('Failed to load messages', err)
     } finally {
@@ -106,16 +104,11 @@ export default {
 
       try {
         const res = await post('/messages', msg)
-        console.log('Message ress:', res)
 
         res.sender = { _id: this.userId }
-        console.log('Message sent:', res)
-        console.log('Messages before push:', this.messages)
-
         this.socket.emit('sendMessage', res)
 
         // this.messages.push(res)
-        console.log('Messages after push:', this.messages)
         this.newMessage = ''
       } catch (err) {
         console.error('Send message failed:', err)
