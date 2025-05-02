@@ -294,7 +294,6 @@ export default {
     async fetchUserProfile() {
       try {
         const res = await get(`users/${this.userId}`)
-        console.log('Fetched user profile:', res)
 
         if (res) {
           this.user = res
@@ -307,13 +306,12 @@ export default {
       }
     },
     async likeProfile() {
-      console.log('Liked profile!')
       // Implement your like logic here
       try {
         const res = await post(`users/like`, {
           toUserId: this.userId,
         })
-        console.log('Like response:', res)
+
         this.toast.success(res.message || 'Its a Match')
         this.$router.push('/') // later change it to go to match list page
       } catch (error) {
@@ -322,13 +320,12 @@ export default {
       }
     },
     async unlikeProfile() {
-      console.log('Unliked profile!')
       // Implement your unlike logic here
       try {
         const res = await post(`users/unlike`, {
           toUserId: this.userId,
         })
-        console.log('Unlike response:', res)
+
         this.toast.success(res.message || 'Like removed.')
         this.$router.push('/')
       } catch (error) {
@@ -337,7 +334,6 @@ export default {
       }
     },
     goToChat(userId) {
-      console.log('Navigating to chat with user ID:', userId)
       this.$router.push({ name: 'ChatRoom', params: { chatId: userId } })
       // this.$router.push({ name: 'ChatRoom', params: { chatId: res._id } })
     },

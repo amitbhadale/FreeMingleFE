@@ -7,12 +7,10 @@
     <v-card class="pa-6" width="400">
       <!-- Logo Image -->
       <v-card-title class="text-center">
-        <v-img src="https://dummyimage.com/420x100/000/fff" contain height="100"></v-img>
+        <v-img src="../../public/logo-main.png" contain height="100"></v-img>
       </v-card-title>
 
-      <v-card-subtitle class="text-center text-subtitle-1"
-        >Please register to enter.</v-card-subtitle
-      >
+      <v-card-subtitle class="text-center">Please register to enter.</v-card-subtitle>
       <v-divider class="my-4"></v-divider>
 
       <v-form ref="register" @submit.prevent="handleSubmit">
@@ -50,7 +48,7 @@
 
         <!-- Buttons -->
         <v-card-actions class="justify-space-between">
-          <v-btn color="blue darken-1" text @click="redirectToLogin">
+          <v-btn text @click="redirectToLogin">
             <!-- <v-icon left>mdi-login</v-icon>  -->
             Login
           </v-btn>
@@ -59,7 +57,7 @@
               <v-icon left>mdi-close</v-icon>
               Cancel
             </v-btn> -->
-            <v-btn type="submit" color="primary" elevation="2">
+            <v-btn type="submit" elevation="2">
               <!-- <v-icon left>mdi-account-plus</v-icon>  -->
               Sign Up
             </v-btn>
@@ -117,14 +115,13 @@ export default {
   methods: {
     async handleSubmit() {
       if (this.$refs.register.validate()) {
-        console.log('Form submitted:', this.form)
         // Here you would typically send the form data to your backend
         try {
           const data = await post('users/register', {
             email: this.form.email,
             password: this.form.password,
           })
-          console.log('Registration successful:', data)
+
           // after successfull registration automatically login user
           // Store JWT in localStorage
           localStorage.setItem('authToken', data.token)

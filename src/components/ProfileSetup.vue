@@ -296,7 +296,7 @@
         <!-- <v-btn v-if="step > 0" @click="step--">Back</v-btn> -->
         <!-- <v-btn v-if="step < 2" @click="step++" color="primary">Next</v-btn> -->
         <v-btn color="grey darken-2" @click="handleCancel">Cancel</v-btn>
-        <v-btn v-if="step === 3" @click="handleSubmit" color="primary">Save</v-btn>
+        <v-btn v-if="step === 3" @click="handleSubmit" elevation="2">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -370,8 +370,6 @@ export default {
   },
   mounted() {
     this.commonStore = useCommonStore()
-    console.log('userData in profile setup', this.userData)
-
     this.form.email = this.commonStore?.userData?.email
   },
   computed: {
@@ -382,7 +380,6 @@ export default {
         ...this.form,
         ...this.commonStore?.userData,
       }
-      console.log('talk to me', this.form)
       // if (this.commonStore?.userData?.mandatoryProfileSetupDone) {
       //   this.$router.push('/photo-setup')
       //   return
@@ -423,14 +420,10 @@ export default {
               delete this.form.email
             }
 
-            console.log('Form submitted:', this.form)
-
             try {
               const data = await put('users/me', this.form)
               // data.dateOfBirth = data.dateOfBirth ? data.dateOfBirth.split('T')[0] : null
-              console.log('Profile updated successfully:', data)
               this.toast.success('Profile updated successfully')
-              console.log('dil hai', data)
 
               if (data.mandatoryProfileSetupDone) {
                 this.$router.push('/photo-setup')
@@ -445,15 +438,12 @@ export default {
               this.toast.error(e?.message || 'Error updating profile')
             }
           } else {
-            console.log('Form is invalid. Please fill in all required fields.')
             this.toast.error('Form is invalid. Please fill in all required fields.')
           }
         } else {
-          console.log('Form is invalid. Please fill in all required fields.')
           this.toast.error('Form is invalid. Please fill in all required fields.')
         }
       } else {
-        console.log('Form references are not available.')
         this.toast.error('Form references are not available.')
       }
     },

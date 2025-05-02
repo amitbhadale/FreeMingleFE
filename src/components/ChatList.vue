@@ -61,7 +61,6 @@ export default {
   async created() {
     try {
       const res = await get('matches')
-      console.log('Fetched in chat list:', res)
 
       this.matches = res
     } catch (err) {
@@ -74,16 +73,12 @@ export default {
     async startChat(otherUserId) {
       try {
         const res = await post('/chats', { userId: otherUserId })
-        console.log('Chat started:', res)
-
         this.$router.push({ name: 'ChatRoom', params: { chatId: res._id } })
       } catch (err) {
         console.error('Failed to start chat', err)
       }
     },
     goToProfile(userId) {
-      console.log('Navigating to user profile with ID:', userId)
-
       this.$router.push({ name: 'UserProfile', params: { id: userId, page: 'match' } })
     },
   },

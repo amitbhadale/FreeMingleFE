@@ -1,5 +1,11 @@
 <template>
-  <v-card class="profile-card mx-auto" max-width="450" elevation="10" rounded="0">
+  <v-card
+    class="profile-card mx-auto"
+    max-width="450"
+    elevation="10"
+    rounded="0"
+    v-if="users.length"
+  >
     <!-- First Image -->
     <v-img
       v-if="updatedImages.length"
@@ -240,6 +246,7 @@
       </div>
     </v-card-text>
   </v-card>
+  <p v-else class="d-flex">No users</p>
 </template>
 <script>
 import { useCommonStore } from '@/stores/commonStore'
@@ -297,7 +304,7 @@ export default {
   },
   mounted() {
     this.commonStore = useCommonStore()
-    // console.log('in recomended', this.userData)
+
     this.getrRecomendations()
 
     this.$nextTick(() => {
@@ -353,8 +360,6 @@ export default {
         this.page++
 
         this.user = { ...this.user, ...this.users[this.selectedUserIndex] }
-        console.log('newUsers:', newUsers)
-        console.log('users:', this.users)
       } catch (error) {
         console.error('Failed to fetch users', error)
       } finally {
@@ -403,13 +408,12 @@ export default {
       this.$router.push('/login')
     },
     async likeProfile() {
-      console.log('Liked profile!')
       // Implement your like logic here
       try {
         const res = await post(`users/like`, {
           toUserId: this.users[this.selectedUserIndex]._id,
         })
-        console.log('Like response:', res)
+
         this.toast.success('Profile liked successfully!')
       } catch (error) {
         console.error('Failed to like profile', error)
@@ -419,7 +423,6 @@ export default {
       }
     },
     showNextProfile() {
-      console.log('Disliked profile!')
       window.scrollTo({
         top: 0,
         behavior: 'smooth', // for smooth scrolling

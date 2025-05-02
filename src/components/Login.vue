@@ -5,8 +5,10 @@
     style="height: 100vh; background-color: #fff5f8"
   >
     <v-card class="pa-6" width="400">
-      <v-card-title class="text-h5">Login</v-card-title>
-      <v-card-subtitle>Please login to enter.</v-card-subtitle>
+      <v-card-title class="text-h5">
+        <v-img src="../../public/logo-main.png" contain height="100"></v-img>
+      </v-card-title>
+      <v-card-subtitle class="text-center">Please login to enter.</v-card-subtitle>
       <v-divider class="my-3"></v-divider>
 
       <v-form @submit.prevent="handleSubmit">
@@ -31,14 +33,14 @@
         <!-- Buttons Section -->
         <v-card-actions class="d-flex justify-space-between">
           <!-- Sign Up Button at Left Bottom -->
-          <v-btn color="blue darken-1" text @click="redirectToSignUp">
+          <v-btn color="darken-1" text @click="redirectToSignUp">
             <!-- <v-icon left>mdi-account-plus</v-icon>  -->
-            Sign Up
+            Create Account
           </v-btn>
 
           <div>
-            <v-btn color="grey" @click="handleCancel">Cancel</v-btn>
-            <v-btn type="submit" color="primary" elevation="2">Login</v-btn>
+            <v-btn color="grey" class="mr-3" @click="handleCancel">Cancel</v-btn>
+            <v-btn type="submit" color="" elevation="2">Login</v-btn>
           </div>
         </v-card-actions>
       </v-form>
@@ -68,14 +70,12 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      console.log('Form submitted:', this.form)
       try {
         const data = await post('users/login', {
           email: this.form.email,
           password: this.form.password,
         })
 
-        console.log('Login successful:', data)
         this.toast.success('Login successful')
         this.commonStore.setToken(data.token)
         this.commonStore.setUserData(data.user)

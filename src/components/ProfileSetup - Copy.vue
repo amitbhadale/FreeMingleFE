@@ -305,8 +305,6 @@ export default {
   },
   mounted() {
     this.commonStore = useCommonStore()
-    console.log('userData in profile setup', this.userData)
-
     this.form.email = this.commonStore?.userData?.email
   },
   computed: {
@@ -317,7 +315,6 @@ export default {
         ...this.form,
         ...this.commonStore?.userData,
       }
-      console.log('talk to me', this.form)
       // if (this.commonStore?.userData?.mandatoryProfileSetupDone) {
       //   this.$router.push('/photo-setup')
       //   return
@@ -351,14 +348,10 @@ export default {
             delete this.form.email
           }
 
-          console.log('Form submitted:', this.form)
-
           try {
             const data = await put('users/me', this.form)
             data.dateOfBirth = data.dateOfBirth ? data.dateOfBirth.split('T')[0] : null
-            console.log('Profile updated successfully:', data)
             this.toast.success('Profile updated successfully')
-            console.log('dil hai', data)
 
             if (data.mandatoryProfileSetupDone) {
               this.$router.push('/photo-setup')
@@ -373,7 +366,6 @@ export default {
             this.toast.error(e?.message || 'Error updating profile')
           }
         } else {
-          console.log('Form is invalid. Please fill in all required fields.')
           this.toast.error('Form is invalid. Please fill in all required fields.')
         }
       }

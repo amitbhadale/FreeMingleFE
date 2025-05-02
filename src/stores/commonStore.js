@@ -10,12 +10,9 @@ export const useCommonStore = defineStore('common', {
 
   actions: {
     setUserData(data) {
-      console.log('Setting user data:', data)
       this.userData = data
     },
     setToken(token) {
-      console.log('Setting token:', token)
-
       this.token = token
       localStorage.setItem('authToken', token)
     },
@@ -23,8 +20,6 @@ export const useCommonStore = defineStore('common', {
       this.userData.images = images
     },
     async fetchUser() {
-      console.log('Fetching user data...')
-
       if (!this.token) {
         console.error('No token found, session expired')
         this.logout() // Logout user if token is missing
@@ -38,7 +33,7 @@ export const useCommonStore = defineStore('common', {
             Authorization: this.token, // No "Bearer" prefix since your backend expects only the token
           },
         })
-        console.log('response', response)
+
         response.dateOfBirth = response.dateOfBirth ? response.dateOfBirth.split('T')[0] : null
         this.setUserData(response)
 
@@ -53,14 +48,10 @@ export const useCommonStore = defineStore('common', {
         //   router.push('/')
         // }
       } catch (error) {
-        console.log('catch in commonstore fetchUser', error)
-
         this.logout()
       }
     },
     logout() {
-      console.log('Logging out...')
-
       this.token = null
       this.user = null
       this.setUserData({})
